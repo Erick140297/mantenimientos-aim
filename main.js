@@ -6,8 +6,8 @@ const fs = require('fs');
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 700,
+    height: 500,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -193,14 +193,18 @@ function createWindow() {
 
       newData = newData.map(({ duracion, tipo, ...resto }) => resto);
 
-      // Convertir los datos a formato TSV
+      // Guardar el archivo XLSX
+      const newWorksheet = XLSX.utils.json_to_sheet(newData, { header: ['infrastructure_id', 'date', 'limit_date', 'description'] });
+      workbook.Sheets[workbook.SheetNames[0]] = newWorksheet;
+      const xlsxOutputPath = filePath.replace(/(\.[\w\d_-]+)$/i, '_processed.xlsx');
+      XLSX.writeFile(workbook, xlsxOutputPath);
+
+      // Convertir los datos a formato TSV y guardarlo
       const tsvData = convertToTSV(newData);
+      const tsvOutputPath = filePath.replace(/(\.[\w\d_-]+)$/i, '_processed.tsv');
+      fs.writeFileSync(tsvOutputPath, tsvData);
 
-      // Guardar el archivo TSV
-      const outputPath = filePath.replace(/(\.[\w\d_-]+)$/i, '_processed.tsv');
-      fs.writeFileSync(outputPath, tsvData);
-
-      return `Archivo procesado y guardado correctamente como: ${outputPath}`;
+      return `Archivos procesados y guardados correctamente como: ${xlsxOutputPath} y ${tsvOutputPath}`;
     } catch (error) {
       return `Error al procesar el archivo: ${error.message}`;
     }
