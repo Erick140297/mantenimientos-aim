@@ -2,12 +2,11 @@ const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const XLSX = require('xlsx');
 const moment = require('moment');
-const fs = require('fs');
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 600,
+    height: 400,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -15,7 +14,7 @@ function createWindow() {
   });
 
   mainWindow.loadFile('index.html');
-  // mainWindow.webContents.openDevTools();
+  //win.webContents.openDevTools()
 
   ipcMain.handle('open-file-dialog', async () => {
     const result = await dialog.showOpenDialog({
@@ -193,24 +192,17 @@ function createWindow() {
 
       newData = newData.map(({ duracion, tipo, ...resto }) => resto);
 
-      // Convertir los datos a formato TSV
-      const tsvData = convertToTSV(newData);
+      const newWorksheet = XLSX.utils.json_to_sheet(newData, { header: ['infrastructure_id', 'date', 'limit_date', 'description'] });
+      workbook.Sheets[workbook.SheetNames[0]] = newWorksheet;
 
-      // Guardar el archivo TSV
-      const outputPath = filePath.replace(/(\.[\w\d_-]+)$/i, '_processed.tsv');
-      fs.writeFileSync(outputPath, tsvData);
+      const outputPath = filePath.replace(/(\.[\w\d_-]+)$/i, '_processed$1');
+      XLSX.writeFile(workbook, outputPath);
 
       return `Archivo procesado y guardado correctamente como: ${outputPath}`;
     } catch (error) {
       return `Error al procesar el archivo: ${error.message}`;
     }
   });
-}
-
-function convertToTSV(data) {
-  const headers = Object.keys(data[0]);
-  const tsvRows = data.map(row => headers.map(field => row[field] || '').join('\t'));
-  return [headers.join('\t'), ...tsvRows].join('\n');
 }
 
 app.whenReady().then(createWindow);
