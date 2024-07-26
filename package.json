@@ -1,0 +1,48 @@
+{
+  "name": "mantenimientos-aim",
+  "version": "1.0.0",
+  "description": "Una aplicación para generar scripts de mantenimiento",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.mantenimientos.aim",
+    "productName": "Mantenimientos-AIM",
+    "files": [
+      "main.js",
+      "index.html",
+      "styles.css",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ]
+    }
+  },
+  "devDependencies": {
+    "electron": "^24.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "dependencies": {
+    "moment": "^2.30.1",
+    "xlsx": "^0.18.5"
+  }
+}

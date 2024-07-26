@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mantenimientos-AIM</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Carga tu archivo aquí:</h1>
+      <div>
+        <button id="load-file">Cargar archivo</button>
+        <button id="process-file">Crear script</button>
+      </div>
+      <p id="file-path"></p>
+      <p id="process-result"></p>
+    </div>
+
+    <script>
+      const { ipcRenderer } = require("electron");
+      let filePath = "";
+
+      document
+        .getElementById("load-file")
+        .addEventListener("click", async () => {
+          document.getElementById("file-path").innerText = "";
+          document.getElementById("process-result").innerText = "";
+          const filePaths = await ipcRenderer.invoke("open-file-dialog");
+          filePath = filePaths[0] || "";
+          document.getElementById("file-path").innerText =
+            filePath || "No se pudo seleccionar el archivo";
+        });
+
+      document
+        .getElementById("process-file")
+        .addEventListener("click", async () => {
+          if (!filePath) {
+            document.getElementById("process-result").innerText =
+              "Por favor selecciona un archivo válido primero";
+            return;
+          }
+          const result = await ipcRenderer.invoke(
+            "process-excel-file",
+            filePath
+          );
+          document.getElementById("process-result").innerText = result;
+        });
+    </script>
+  </body>
+</html>
