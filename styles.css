@@ -7,27 +7,41 @@ body {
   padding: 20px;
 }
 
-.logo{
+.logo {
   width: 160px;
   height: auto;
   margin-right: 20px;
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.menu{
+.menu {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.btns{
+.btns {
   display: flex;
   flex-direction: column;
+}
+
+.plantilla-img {
+  width: 520px;
+  height: auto;
+}
+
+.plantilla{
+  margin-top: 20px;
+}
+
+.plantilla-text{
+  font-size: 25px;
+  font-weight: bold;
 }
 
 h1 {

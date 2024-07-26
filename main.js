@@ -6,8 +6,8 @@ const fs = require("fs");
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 700,
-    height: 550,
+    width: 750,
+    height: 750,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -18,7 +18,7 @@ function createWindow() {
   // mainWindow.webContents.openDevTools();
 
   // Ocultar la barra de menú
-  mainWindow.setMenuBarVisibility(false);
+  // mainWindow.setMenuBarVisibility(false);
 
   ipcMain.handle("open-file-dialog", async () => {
     const result = await dialog.showOpenDialog({
