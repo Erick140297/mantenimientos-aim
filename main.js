@@ -18,7 +18,7 @@ function createWindow() {
   // mainWindow.webContents.openDevTools();
 
   // Ocultar la barra de menú
-  // mainWindow.setMenuBarVisibility(false);
+  mainWindow.setMenuBarVisibility(false);
 
   ipcMain.handle("open-file-dialog", async () => {
     const result = await dialog.showOpenDialog({
