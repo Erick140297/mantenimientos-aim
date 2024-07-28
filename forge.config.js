@@ -4,12 +4,16 @@ const { FuseV1Options, FuseVersion } = require("@electron/fuses");
 module.exports = {
   packagerConfig: {
     asar: true,
+    icon: 'ico'
   },
   rebuildConfig: {},
   makers: [
     {
       name: "@electron-forge/maker-squirrel",
-      config: {},
+      config: {
+        authors: 'Erick Monterrubio',
+        description: 'Una aplicación para generar archivos de mantenimiento'
+      },
     },
     {
       name: "@electron-forge/maker-zip",

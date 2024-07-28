@@ -4,6 +4,9 @@ const XLSX = require("xlsx");
 const moment = require("moment");
 const fs = require("fs");
 
+// run this as early in the main process as possible
+if (require("electron-squirrel-startup")) app.quit();
+
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 750,
@@ -12,6 +15,7 @@ function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
+    icon: 'ico.ico'
   });
 
   mainWindow.loadFile("index.html");

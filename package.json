@@ -1,7 +1,7 @@
 {
   "name": "mantenimientos-aim",
-  "version": "1.0.6",
-  "description": "Una aplicación para generar scripts de mantenimiento",
+  "version": "1.0.7",
+  "description": "Una aplicación para generar archivos de mantenimiento",
   "author": "Erick Monterrubio",
   "license": "MIT",
   "main": "main.js",
