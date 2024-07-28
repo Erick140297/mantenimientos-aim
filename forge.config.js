@@ -12,7 +12,9 @@ module.exports = {
       name: "@electron-forge/maker-squirrel",
       config: {
         authors: 'Erick Monterrubio',
-        description: 'Una aplicación para generar archivos de mantenimiento'
+        description: 'Una aplicación para generar archivos de mantenimiento',
+        iconUrl:"https://res.cloudinary.com/dnrcmjyu1/image/upload/v1722163117/AIM/ico_k5y8oi.ico",
+        setupIcon:"ico.ico"
       },
     },
     {
